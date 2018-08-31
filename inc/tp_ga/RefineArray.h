@@ -70,6 +70,7 @@ void refineArray(ParameterContainer& params,
     return a;
   };
 
+  std::vector<size_t> indexes;
   for(size_t i=iterations; i; i--)
   {
     //-- Mutate ------------------------------------------------------------------------------------
@@ -77,7 +78,7 @@ void refineArray(ParameterContainer& params,
     {
       pool.pop_back();
 
-      std::vector<size_t> indexes = rng.randomIndexes(pool.size(), 2);
+      rng.randomIndexes(pool.size(), 2, indexes);
       if(indexes.size() == 2)
       {
         Pair_lt* a = pool.at(indexes.at(0));

@@ -16,7 +16,7 @@ void ransacRefineArray(ParameterContainer& params,
                        const ObservationContainer& obs,
                        DistanceFunction dist,
                        size_t iterations,
-                       size_t sampleSize,
+                       size_t obsPerSample,
                        size_t nSamples)
 {
   auto fit = [&dist, iterations](ParameterContainer& params, const ObservationContainer& sample)
@@ -32,7 +32,7 @@ void ransacRefineArray(ParameterContainer& params,
     return totalDist;
   };
 
-  ransac<DistanceType>(params, obs, sampleSize, nSamples, fit, containerDist);
+  ransac<DistanceType>(params, obs, obsPerSample, nSamples, fit, containerDist);
 }
 
 //##################################################################################################
@@ -46,7 +46,7 @@ void ransacRefineArray(ParameterContainer& params,
                        PrepareFunction prepare,
                        DistanceFunction dist,
                        size_t iterations,
-                       size_t sampleSize,
+                       size_t obsPerSample,
                        size_t nSamples)
 {
   auto fit = [&prepare, &dist, iterations](ParameterContainer& params, const ObservationContainer& sample)
@@ -63,7 +63,7 @@ void ransacRefineArray(ParameterContainer& params,
     return totalDist;
   };
 
-  ransac<DistanceType>(params, obs, sampleSize, nSamples, fit, containerDist);
+  ransac<DistanceType>(params, obs, obsPerSample, nSamples, fit, containerDist);
 }
 
 //##################################################################################################
@@ -77,7 +77,7 @@ void ransacRefineArray(ParameterContainer& params,
                        PrepareFunction prepare,
                        DistanceFunction dist,
                        size_t iterations,
-                       size_t sampleSize,
+                       size_t obsPerSample,
                        size_t nSamples,
                        std::vector<std::array<DistanceType, 2>>& distances)
 {
@@ -95,7 +95,7 @@ void ransacRefineArray(ParameterContainer& params,
     return totalDist;
   };
 
-  ransac<DistanceType>(params, obs, sampleSize, nSamples, fit, containerDist);
+  ransac<DistanceType>(params, obs, obsPerSample, nSamples, fit, containerDist);
 }
 
 }

@@ -4,6 +4,8 @@
 #include "tp_ga/Globals.h"
 
 #include "tp_math_utils/Globals.h"
+#include "tp_utils/DebugUtils.h"
+#include "tp_utils/TimeUtils.h"
 
 namespace tp_ga
 {
@@ -14,7 +16,7 @@ template<typename DistanceType,
          typename DistanceFunction>
 void ransac(ModelType& model,
             const ObservationContainer& obs,
-            size_t sampleSize,
+            size_t obsPerSample,
             size_t nSamples,
             FitFunction fit,
             DistanceFunction dist)
@@ -23,11 +25,13 @@ void ransac(ModelType& model,
 
   auto bestDistance = dist(model, obs);
 
+  std::vector<size_t> indexes;
+
   for(auto i=nSamples; i; i--)
   {
     ObservationContainer sample;
     {
-      std::vector<size_t> indexes =  rng.randomIndexes(obs.size(), sampleSize);
+      rng.randomIndexes(obs.size(), obsPerSample, indexes);
       sample.reserve(indexes.size());
       for(auto index : indexes)
         sample.push_back(obs.at(index));
