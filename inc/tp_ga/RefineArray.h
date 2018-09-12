@@ -132,7 +132,7 @@ void refineArray(ParameterContainer& params,
                  DistanceFunction dist,
                  size_t iterations)
 {
-  auto containerDist = [&](const ParameterContainer& p)
+  auto containerDist = [&](ParameterContainer& p)
   {
     DistanceType totalDist=DistanceType();
     for(const auto& o : obs)
@@ -180,7 +180,7 @@ void refineArray(ParameterContainer& params,
                  size_t iterations,
                  std::vector<std::array<DistanceType, 2>>& distances)
 {
-  auto containerDist = [&](const ParameterContainer& p)
+  auto containerDist = [&](ParameterContainer& p)
   {
     DistanceType totalDist=DistanceType();
     const auto pp = prepare(p);
